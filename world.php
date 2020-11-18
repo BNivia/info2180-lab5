@@ -3,6 +3,7 @@ $host = 'localhost';
 $username = 'lab5_user';
 $password = 'password123';
 $dbname = 'world';
+error_reporting (0);
 
 
 $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
@@ -23,7 +24,6 @@ if ($context != "cities"){
         $searchby = "con";
       }else{
         $searchby = "none";
-        $result = "Not found.";
     }
   }
 }
@@ -39,33 +39,33 @@ if ($context == "cities"){
     if ($stmt != null || $stmt != ""){
       $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }else{
-      $result = "Not found.";
+      $searchby = "none";
     }
   }
 }
 ?>
 
 <?php if ($searchby == "con"):?>
-<table>
-    <tr>
-      <th>Name</th>
-      <th>Continent</th>
-      <th>Year of Independence</th>
-      <th>Head of State</th>
-    </tr>
-    <?php foreach ($result as $row): ?>
+  <table class="con-tab">
       <tr>
-      <td><?= $row['name'] ?></td>
-      <td><?= $row['continent'] ?></td>
-      <td><?= $row['independence_year'] ?></td>
-      <td><?= $row['head_of_state'] ?></td>
+        <th>Name</th>
+        <th>Continent</th>
+        <th>Year of Independence</th>
+        <th>Head of State</th>
       </tr>
-    <?php endforeach; ?>
-</table>
+      <?php foreach ($result as $row): ?>
+        <tr>
+        <td><?= $row['name'] ?></td>
+        <td><?= $row['continent'] ?></td>
+        <td><?= $row['independence_year'] ?></td>
+        <td><?= $row['head_of_state'] ?></td>
+        </tr>
+      <?php endforeach; ?>
+  </table>
 <?php endif; ?>
 
 <?php if ($searchby == "cit"): ?>
-  <table>
+  <table class="cit-tab">
     <tr>
       <th>Name</th>
       <th>District</th>
@@ -81,6 +81,6 @@ if ($context == "cities"){
 </table>
 <?php endif; ?>
 
-<?php if ($searchby == "none" && $result == "Not found."): ?>
-  <p><?= $result ?></p>
+<?php if ($searchby == "none"): ?>
+  <p>Not Found.</p>
 <?php endif; ?>
