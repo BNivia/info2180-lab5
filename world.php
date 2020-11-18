@@ -15,17 +15,21 @@ else{
   $stmt = $conn->query("SELECT * FROM countries");
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-
-
 ?>
 
 <table>
     <tr>
       <th>Name</th>
+      <th>Continent</th>
+      <th>Year of Independence</th>
+      <th>Head of State</th>
     </tr>
     <?php foreach ($result as $row): ?>
       <tr>
       <td><?= $row['name'] ?></td>
+      <td><?= $row['continent'] ?></td>
+      <td><?= $row['independence_year'] ?></td>
+      <td><?= $row['head_of_state'] ?></td>
       </tr>
     <?php endforeach; ?>
 </table>
